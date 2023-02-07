@@ -11,6 +11,8 @@ export function CartProvider({ children }){
     setCartItems(cartItems.filter(x => x !== item));
   };
 
+ 
+
   return (
     <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       {children}

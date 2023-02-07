@@ -1,17 +1,26 @@
 import {useContext} from 'react'
 import {CartContext} from "./ProviderCart"
-import { Card,Button,Image,Rate } from 'antd';
+import { Card,Button,Image,Rate ,message} from 'antd';
+import SubMenu from 'antd/es/menu/SubMenu';
 const { Meta } = Card;
-export default function Product({img,title,description, key, imgs}) {
+export default function Product({img,title,description, key, imgs,price}) {
     const { addToCart } = useContext(CartContext);
+    const [messageApi, contextHolder] = message.useMessage();
+    const success = () => {
+      messageApi.open({
+        type: 'success',
+        content: 'the product added to cart !',
+        duration: 10,
+      });
+      // alert("hu")
+    };
+    const custom = ()=>{
+      
+      success();
+    }    
     return (
-      <div key={key} className="col-md-3">
-        {/* <h3>{title}</h3>
-        <p>{description}</p>
-        {console.log(title)}
-        <img style={{width : "100px"}} src = {imgs[1]}/>
-        <button onClick={() => addToCart({ title, img })}>Add to Cart</button>
-        <hr/> */}
+      <div key={key} className="col-md-4 col-lg-3">
+        {contextHolder}
             <Card
         hoverable
         style={{ width: 240 }}
@@ -24,13 +33,14 @@ export default function Product({img,title,description, key, imgs}) {
         extra={<a href="#">More</a>}
         extra={
           <div>
-            <Button onClick={() => addToCart({ title, img })}  type="primary">add</Button>
-            <Button style={{ marginLeft: 8 }}>Learn More</Button>
+            <Button onClick={() => addToCart({ title, img ,price})}  type="primary">add</Button>
+            <Button onClick={success}style={{ marginLeft: 8 }}>Learn More</Button>
           </div>
         }
       >
       <Meta title={title} description={description} />
-      <Meta description={<Rate allowHalf defaultValue={2} />} />
+      <Meta description={<Rate allowHalf defaultValue={(price / 10)} />} />
+      <Meta className='mt-3' description={price + "$"} />
       </Card>
       <hr/>
       </div>

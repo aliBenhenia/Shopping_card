@@ -1,9 +1,10 @@
-import { MailOutlined, SettingOutlined,AppstoreOutlined ,HomeFilled, ShoppingCartOutlined} from '@ant-design/icons';
+import { MailOutlined, SettingOutlined,AppstoreOutlined ,HomeFilled, ShoppingCartOutlined,Typography} from '@ant-design/icons';
 import { Menu } from 'antd';
-
-const Header = () => {
-  
+import { useContext } from 'react';
+import { CartContext } from './ProviderCart';
+const Header = ({show}) => {
   return (
+    <div>
     <Menu
     mode="horizontal"
     items={[
@@ -59,8 +60,15 @@ const Header = () => {
         label: "Fragrances",
         key: "fragrances",
       },
+      {
+        label: <ShoppingCartOutlined onClick={show}/>,
+        key: "fragrances",
+      },
+      
     ]}
+    
   />
+  </div>
   );
 };
 export default Header;
